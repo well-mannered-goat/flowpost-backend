@@ -1,4 +1,6 @@
-import { model, Schema } from "mongoose";
+import { model, mongo, Schema } from "mongoose";
+import { User } from "./UserModel";
+import mongoose, { Document } from "mongoose";
 
 // Instagram
 
@@ -13,7 +15,8 @@ export interface IPostIG {
     collaborators: string[];
     coverUrl: string;
     audioName: string;
-
+    locationId: string
+    user: mongoose.Types.ObjectId;
 }
 
 const postImageSchema = new Schema<IPostIG>({
@@ -21,7 +24,9 @@ const postImageSchema = new Schema<IPostIG>({
     isCarousel: { type: Boolean, required: true },
     caption: { type: String, default: "" },
     userTags: { type: [String], default: [] },
-    accessToken: { type: String, required: true }
+    accessToken: { type: String, required: true },
+    locationId: { type: String, default: "" },
+    user: { type: Schema.Types.ObjectId, ref: User, required: true }
 });
 
 export const PostImageIG = model<IPostIG>('PostImageIG', postImageSchema);
@@ -35,7 +40,9 @@ const postReelSchema = new Schema<IPostIG>({
     shareToFeed: { type: Boolean, required: true },
     collaborators: { type: [String], default: [] },
     coverUrl: { type: String, required: true },
-    audioName: { type: String, default: null }
+    audioName: { type: String, default: null },
+    locationId: { type: String, default: "" },
+    user: { type: Schema.Types.ObjectId, ref: User, required: true }
 });
 
 export const PostReelIG = model<IPostIG>('PostReelIG', postReelSchema);

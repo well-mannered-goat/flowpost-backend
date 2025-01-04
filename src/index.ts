@@ -4,6 +4,7 @@ import cors from 'cors';
 dotenv.config();
 import mongoose, { mongo } from 'mongoose';
 import authRoutes from './routes/AuthRoutes';
+import postRoutes from './routes/PostRoutes';
 
 mongoose.connect(process.env.MONGODB_URL!)
 .then(()=>console.log("DB connected"))
@@ -16,7 +17,9 @@ const port = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
+
 app.use('/auth', authRoutes);
+app.use('/post', postRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Flowpost API');
