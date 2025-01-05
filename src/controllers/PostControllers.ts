@@ -11,7 +11,7 @@ interface APIResponse {
 
 export const createPostImageIG = async (req: CustomRequest, res: Response) => {
     try {
-        const { url, caption, userTags, isCarousel, locationId } = req.body;
+        const { url, caption, userTags } = req.body;
 
         const user = await User.findById(req.user)
         const token = user?.insta_access_token;
@@ -40,7 +40,6 @@ export const createPostImageIG = async (req: CustomRequest, res: Response) => {
             url,
             caption,
             userTags,
-            isCarousel,
             accessToken,
             user
         });
