@@ -21,7 +21,7 @@ export interface IPostIG {
 
 const postImageSchema = new Schema<IPostIG>({
     url: { type: String, required: true },
-    isCarousel: { type: Boolean, required: true },
+    isCarousel: { type: Boolean, required: true, default: false },
     caption: { type: String, default: "" },
     userTags: { type: [String], default: [] },
     accessToken: { type: String, required: true },
