@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PostImageIG, PostReelIG } from "../models/PostModels";
+import { PostImageIG } from "../models/PostModels";
 import { User } from "../models/UserModel";
 import { CustomRequest } from "../middlewares/AuthenticateToken";
 import axios, { AxiosResponse } from "axios";
@@ -14,14 +14,14 @@ export const createPostImageIG = async (req: CustomRequest, res: Response) => {
         const { url, caption, userTags, isCarousel, locationId } = req.body;
 
         const user = await User.findById(req.user)
-        const token=user?.insta_access_token;
-        if(!token){
-            res.status(404).json({message:"Access token not found"});
+        const token = user?.insta_access_token;
+        if (!token) {
+            res.status(404).json({ message: "Access token not found" });
             return;
         }
 
-        const accessToken=decryptToken(token);
-        
+        const accessToken = decryptToken(token);
+
         const userInfoUrl = `https://graph.facebook.com/v21.0/me/accounts?access_token=${accessToken}`;
         const userInfoRes = await axios.get(userInfoUrl);
 

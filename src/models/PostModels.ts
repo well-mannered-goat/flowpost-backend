@@ -31,18 +31,18 @@ const postImageSchema = new Schema<IPostIG>({
 
 export const PostImageIG = model<IPostIG>('PostImageIG', postImageSchema);
 
-const postReelSchema = new Schema<IPostIG>({
-    mediaType: "REELS",
-    url: { type: String, required: true },
-    caption: { type: String, default: "" },
-    userTags: { type: [String], default: [] },
-    accessToken: { type: String, required: true },
-    shareToFeed: { type: Boolean, required: true },
-    collaborators: { type: [String], default: [] },
-    coverUrl: { type: String, required: true },
-    audioName: { type: String, default: null },
-    locationId: { type: String, default: "" },
-    user: { type: Schema.Types.ObjectId, ref: User, required: true }
-});
+// const postReelSchema = new Schema<IPostIG>({
+//     mediaType: "REELS",
+//     url: { type: String, required: true },
+//     caption: { type: String, default: "" },
+//     userTags: { type: [String], default: [] },
+//     accessToken: { type: String, required: true },
+//     shareToFeed: { type: Boolean, required: true },
+//     collaborators: { type: [String], default: [] },
+//     coverUrl: { type: String, required: true },
+//     audioName: { type: String, default: null },
+//     locationId: { type: String, default: "" },
+//     user: { type: Schema.Types.ObjectId, ref: User, required: true }
+// });
 
-export const PostReelIG = model<IPostIG>('PostReelIG', postReelSchema);
+// export const PostReelIG = model<IPostIG>('PostReelIG', postReelSchema);

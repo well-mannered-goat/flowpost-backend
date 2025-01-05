@@ -60,7 +60,8 @@ export const loginUser = async (req: Request, res: Response) => {
         });
     }
     catch (error) {
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error", error });
+        console.log(error)
     }
 }
 

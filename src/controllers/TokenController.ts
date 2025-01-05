@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import {User} from "../models/UserModel";
 import { encryptToken } from "../internal/token";
+import { CustomRequest } from "../middlewares/AuthenticateToken";
 
-export const storeAccessToken = async (req: Request, res: Response) => {
+export const storeAccessToken = async (req: CustomRequest, res: Response) => {
   try {
-    const { userId, instagramToken, youtubeToken } = req.body;
+    const { instagramToken, youtubeToken } = req.body;
 
-    const user = await User.findById(userId);
+    const user = await User.findById(req.user);
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
