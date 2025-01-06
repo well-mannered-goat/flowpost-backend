@@ -5,10 +5,10 @@ import mongoose, { Document } from "mongoose";
 // Instagram
 
 export interface IPostIG {
-    url: string;
+    url: string[] | string;
     isCarousel: boolean;
     caption: string;
-    userTags: string[];
+    userTags: string[] | string[][];
     accessToken: string;
     mediaType: string;
     shareToFeed: boolean;
@@ -46,3 +46,16 @@ const postReelSchema = new Schema<IPostIG>({
 });
 
 export const PostReelIG = model<IPostIG>('PostReelIG', postReelSchema);
+
+const postCarouselSchema = new Schema<IPostIG>({
+    mediaType: "CAROUSEL",
+    url: { type: [[String]], required: true },
+    caption: { type: String, default: "" },
+    accessToken: { type: String, required: true },
+    shareToFeed: { type: Boolean, required: true },
+    collaborators: { type: [String], default: [] },
+    locationId: { type: String, default: "" },
+    user: { type: Schema.Types.ObjectId, ref: User, required: true }
+});
+
+export const PostCarouselIG = model<IPostIG>('PostCarouselIG', postCarouselSchema);

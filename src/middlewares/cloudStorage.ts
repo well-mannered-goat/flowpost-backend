@@ -13,15 +13,28 @@ cloudinary.config({
 
 const uploadToCloud = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        if (!req.file)
+        if (!req.file && !req.files)
         {
             res.status(400).json({ message: "No file uploaded" });
             return;
         }
 
-        const result = await cloudinary.uploader.upload(req.file.path);
-        fs.unlinkSync(req.file.path)
-        req.body.url = result.secure_url;
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            fs.unlinkSync(req.file.path)
+            req.body.url = result.secure_url;
+        }
+        else {
+            const uploadedImagesUrl: string[] = [];
+            const files = req.files as Express.Multer.File[];
+
+            for (const file of files) {
+                const result = await cloudinary.uploader.upload(file.path);
+                fs.unlinkSync(file.path)
+                uploadedImagesUrl.push(result.secure_url);
+            }
+            req.body.url = uploadedImagesUrl;
+        }
 
         next();
     }
